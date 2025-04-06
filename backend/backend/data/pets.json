@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1743965103116,
+    "name": "Billu",
+    "breed": "cat",
+    "age": "45",
+    "location": "chennai",
+    "price": "78",
+    "image": "/uploads/1743965103112-billu.avif"
+  },
+  {
+    "id": 1743965362512,
+    "name": "buddy",
+    "breed": "dog",
+    "age": "4",
+    "location": "pune",
+    "price": "56",
+    "image": "/uploads/1743965362492-buddy.jpeg"
+  },
+  {
+    "id": 1743965389913,
+    "name": "kittu",
+    "breed": "cat",
+    "age": "3",
+    "location": "london",
+    "price": "90",
+    "image": "/uploads/1743965389911-download.jpeg"
+  },
+  {
+    "id": 1743965453582,
+    "name": "billa",
+    "breed": "cat",
+    "age": "5",
+    "location": "bihar",
+    "price": "57",
+    "image": "/uploads/1743965453569-kitty.jpg"
+  }
+]
