@@ -10,7 +10,7 @@ on:
 
 permissions:
   contents: read
-  security-events: write
+  security-events: write  # Needed for SARIF upload
 
 jobs:
   code_quality:
@@ -28,9 +28,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        working-directory: frontend
 
       - name: Run tests with coverage
         run: npm test -- --coverage || true
+        working-directory: frontend
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -50,11 +52,12 @@ jobs:
       - name: Run SonarQube Scan
         run: |
           sonar-scanner \
-            -Dsonar.projectKey=stutig123_petshop \
-            -Dsonar.organization=stutig123 \
+            -Dsonar.projectKey=Petshop-devsecops \
+            -Dsonar.organization=your-org \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.sources=. \
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+        working-directory: frontend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -71,7 +74,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
-          scan-ref: '.'
+          scan-ref: './frontend'
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
