@@ -10,7 +10,7 @@ on:
 
 permissions:
   contents: read
-  security-events: write  # Needed for SARIF upload
+  security-events: write
 
 jobs:
   code_quality:
@@ -24,9 +24,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
         working-directory: frontend
 
       - name: Run tests with coverage
@@ -51,8 +52,8 @@ jobs:
       - name: Run SonarQube Scan
         run: |
           sonar-scanner \
-            -Dsonar.projectKey=Petshop-devsecops \
-            -Dsonar.organization=your-org \
+            -Dsonar.projectKey=stutig123_petshop-devsecops \
+            -Dsonar.organization=stutig123 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.sources=. \
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
@@ -103,6 +104,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: .  # Can customize if needed
+          context: .
           push: true
           tags: stutig123/petshop:latest
