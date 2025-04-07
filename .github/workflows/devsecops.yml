@@ -106,5 +106,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: stutig123/petshop:latest
+          tags: stutigambhir/petshop:latest
 #NOW LET US RUN THIS
