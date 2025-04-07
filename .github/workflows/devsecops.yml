@@ -107,4 +107,25 @@ jobs:
           context: .
           push: true
           tags: stutigambhir/petshop:latest
-#NOW LET US RUN THIS
+
+  deploy:
+    name: 🚀 Deploy to EC2 with Ansible
+    runs-on: ubuntu-latest
+    needs: docker_build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Ansible
+        run: sudo apt update && sudo apt install -y ansible
+
+      - name: Create SSH key
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > stuti-key.pem
+          chmod 600 stuti-key.pem
+
+      - name: Run Ansible Playbook
+        run: |
+          ansible-playbook ansible/playbook.yml -i ansible/inventory.ini --private-key stuti-key.pem -u ${{ secrets.EC2_USER }}
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: "False"

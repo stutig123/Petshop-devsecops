@@ -1,0 +1,11 @@
+- hosts: web
+  become: true
+  tasks:
+    - name: Stop and remove existing container
+      shell: docker rm -f petshop || true
+
+    - name: Pull latest image from DockerHub
+      shell: docker pull stutigambhir/petshop:latest
+
+    - name: Run the container
+      shell: docker run -d -p 80:3000 --name petshop stutigambhir/petshop:latest
