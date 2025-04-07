@@ -10,11 +10,11 @@ on:
 
 permissions:
   contents: read
-  security-events: write
+  security-events: write  # Needed for SARIF upload
 
 jobs:
   code_quality:
-    name: 📊 Code Quality Check (SonarQube)
+    name: 📊 Code Quality Check (SonarCloud)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -24,10 +24,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
         working-directory: frontend
 
       - name: Run tests with coverage
@@ -49,14 +48,15 @@ jobs:
           chmod +x sonar-scanner/bin/sonar-scanner
           echo "$(pwd)/sonar-scanner/bin" >> $GITHUB_PATH
 
-      - name: Run SonarQube Scan
+      - name: Run SonarCloud Scan
         run: |
           sonar-scanner \
             -Dsonar.projectKey=stutig123_petshop-devsecops \
             -Dsonar.organization=stutig123 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.sources=. \
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+            -Dsonar.branch.name=main
         working-directory: frontend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
