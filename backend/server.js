@@ -18,8 +18,15 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/auth', authRoutes);
 app.use('/api/pets', petRoutes);
 
+// Serve static frontend files from 'dist' (React build output)
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// Handle SPA routing (send index.html for unknown routes)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
 // Start Server
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
-//hello
