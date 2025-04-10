@@ -129,3 +129,5 @@ jobs:
           ansible-playbook ansible/playbook.yml -i ansible/inventory.ini --private-key stuti-key.pem -u ${{ secrets.EC2_USER }}
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
+
+          #hello

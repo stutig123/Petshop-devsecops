@@ -8,5 +8,15 @@
     "username": "user3",
     "password": "admin123",
     "role": "user"
+  },
+  {
+    "username": "stuti.gambhir123@gmail.com",
+    "password": "stuti",
+    "role": "user"
+  },
+  {
+    "username": "mnger@gmail.com",
+    "password": "manage",
+    "role": "manager"
   }
 ]
