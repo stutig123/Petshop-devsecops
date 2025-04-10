@@ -1,11 +1,25 @@
 - hosts: web
   become: true
   tasks:
+    - name: Check if Docker is running
+      command: systemctl is-active docker
+      register: docker_status
+      failed_when: docker_status.stdout != 'active'
+      changed_when: false
+
+    - name: Output Docker status
+      debug:
+        msg: "Docker is running!"
+      when: docker_status.stdout == 'active'
+
     - name: Stop and remove existing container
       shell: docker rm -f petshop || true
+      when: docker_status.stdout == 'active'
 
     - name: Pull latest image from DockerHub
       shell: docker pull stutigambhir/petshop:latest
+      when: docker_status.stdout == 'active'
 
     - name: Run the container
       shell: docker run -d -p 80:3000 --name petshop stutigambhir/petshop:latest
+      when: docker_status.stdout == 'active'
