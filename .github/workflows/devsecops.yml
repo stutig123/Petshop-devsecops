@@ -132,6 +132,7 @@ jobs:
 
       - name: 🔍 Verify Running Containers
         run: |
-          ssh -o StrictHostKeyChecking=no -i stuti-key.pem ubuntu@13.203.202.12 "docker ps"
+          ssh -o StrictHostKeyChecking=no -i stuti-key.pem ec2-user@13.203.202.12 "docker ps"
+
 
 
