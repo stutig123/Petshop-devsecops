@@ -10,7 +10,7 @@ on:
 
 permissions:
   contents: read
-  security-events: write
+  security-events: write  # Needed for SARIF upload
 
 jobs:
   code_quality:
@@ -130,7 +130,4 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
 
-      
-
-
-
+          #hello such tht we can seea container running thru docker
