@@ -10,7 +10,7 @@ on:
 
 permissions:
   contents: read
-  security-events: write  # Needed for SARIF upload
+  security-events: write
 
 jobs:
   code_quality:
